@@ -4,11 +4,15 @@ from rest_framework.authtoken import views
 from drf_yasg import openapi
 import os
 from drf_yasg.views import get_schema_view
-from blog.api.views import PostList, PostDetail,UserDetail
+from blog.api.views import PostViewSet,UserDetail,TagViewSet
+from rest_framework.routers import DefaultRouter
+
+
+router = DefaultRouter()
+router.register("tags", TagViewSet)
+router.register("posts", PostViewSet)
 
 urlpatterns = [
-    path("posts/", PostList.as_view(), name="api_post_list"),
-    path("posts/<int:pk>/", PostDetail.as_view(), name="api_post_detail"),
      path("users/<str:email>", UserDetail.as_view(), name="api_user_detail"),
 ]
 
@@ -37,4 +41,7 @@ urlpatterns+=[
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     ),
+
+    #viewset route
+    path("", include(router.urls)),
 ]
