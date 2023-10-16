@@ -58,6 +58,7 @@ class Dev(Configuration):
         'crispy_forms',
         'crispy_bootstrap5',
         "debug_toolbar",
+        'drf_yasg',
         #allauth
         'allauth',
         'allauth.account',
@@ -246,6 +247,15 @@ class Dev(Configuration):
     ]
                 }
 
+
+    #swagger for drf
+
+    SWAGGER_SETTINGS = {
+        "SECURITY_DEFINITIONS": {
+            "Token": {"type": "apiKey", "name": "Authorization", "in": "header"},
+            "Basic": {"type": "basic"},
+        }
+    }
 
 
 class Prod(Dev):
